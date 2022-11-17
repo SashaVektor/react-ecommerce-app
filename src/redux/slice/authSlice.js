@@ -1,38 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  isLoggedIn: false,
-  email: null,
-  useName: null,
-  userID: null,
-};
-
+    isLoggedIn: false,
+    email: null,
+    userName: null,
+    userId: null
+}
 const authSlice = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {
-    SET_ACTIVE_USER: (state, action) => {
-      // console.log(action.payload);
-      const { email, userName, userID } = action.payload;
-      state.isLoggedIn = true;
-      state.email = email;
-      state.userName = userName;
-      state.userID = userID;
-    },
-    REMOVE_ACTIVE_USER(state, action) {
-      state.isLoggedIn = false;
-      state.email = null;
-      state.userName = null;
-      state.userID = null;
-    },
-  },
-});
+    name: 'authSlice',
+    initialState,
+    reducers: {
+        setActiveUser : (state, action) => {
+            state.isLoggedIn = true;
+            state.email = action.payload.email;
+            state.userId = action.payload.userId;
+            state.userName = action.payload.userName
+        },
+        removeActiveUser : (state, action) => {
+            state.isLoggedIn = false;
+            state.email = null;
+            state.userId = null;
+            state.userName = null
+        }
+    }
+})
 
-export const { SET_ACTIVE_USER, REMOVE_ACTIVE_USER } = authSlice.actions;
+export const {setActiveUser, removeActiveUser} = authSlice.actions
 
-export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
-export const selectEmail = (state) => state.auth.email;
-export const selectUserName = (state) => state.auth.userName;
-export const selectUserID = (state) => state.auth.userID;
+export const selectIsLoggedIn = (state) => state.authSlice.isLoggedIn
+export const selectEmail = (state) => state.authSlice.email
+export const selectUserName = (state) => state.authSlice.userName
+export const selectUserId = (state) => state.authSlice.userId
 
-export default authSlice.reducer;
+export default authSlice.reducer
